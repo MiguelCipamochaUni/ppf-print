@@ -1,7 +1,7 @@
 import db from "@/lib/db";
 
-export async function POST(_, { params }) {
-  const { id } = params;
+export async function DELETE(_, { params }) {
+  const { id } = await params;
 
   await db.product.delete({
     where: { id },

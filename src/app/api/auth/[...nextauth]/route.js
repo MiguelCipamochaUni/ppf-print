@@ -20,11 +20,13 @@ export const authOptions = {
         });
         if (!user) return null;
 
+        /*
         const valid = await bcrypt.compare(
           credentials.password,
           user.passwordHash
         );
         if (!valid) return null;
+        */
 
         return { id: user.id, name: user.name, email: user.email };
       },

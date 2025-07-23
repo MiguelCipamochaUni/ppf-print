@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import db from "@/lib/db";
+import ProductoAdminItem from "./ProductoAdminItem";
 
 export default async function AdminProductos() {
   /*
@@ -17,21 +18,29 @@ export default async function AdminProductos() {
   if (user.role !== "admin") redirect("/");
   */
 
-  const productos = await db.product.findMany();
+  const handleDelete = async () => {
+    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+
+    await fetch(`/api/admin/productos/${id}/delete`, {
+      method: "DELETE",
+    });
+
+    router.push("/admin/productos/eliminado");
+  };
+
+  const productosPrisma = await db.product.findMany();
+
+  const productos = productosPrisma.map((p) => ({
+    ...p,
+    price: p.price.toNumber(), // convierte Decimal -> number
+  }));
 
   return (
     <div>
       <h1>Gestión de productos</h1>
       <a href="/admin/productos/nuevo">Añadir producto</a>
       {productos.map((p) => (
-        <div key={p.id}>
-          <h2>{p.title}</h2>
-          <p>{p.price.toString()} COP</p>
-          <a href={`/admin/productos/${p.id}/editar`}>Editar</a>
-          <form method="POST" action={`/api/admin/productos/${p.id}/delete`}>
-            <button type="submit">Eliminar</button>
-          </form>
-        </div>
+        <ProductoAdminItem key={p.id} producto={p} />
       ))}
     </div>
   );

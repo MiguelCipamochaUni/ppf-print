@@ -1,32 +1,31 @@
 import prisma from "../../lib/db";
 import Link from "next/link";
+import "./catalogo.css";
 
 export default async function Catalogo() {
-  const products = await prisma.product.findMany();
+  const productsPrisma = await prisma.product.findMany();
+  const products = productsPrisma.map((p) => ({
+    ...p,
+    price: p.price.toNumber(), // convierte Decimal -> number
+  }));
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className="catalogo-container">
       <h1>Catálogo</h1>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "12rem",
-        }}
-      >
+      <div className="catalogo-grid">
         {products.map((p) => (
-          <div key={p.id}>
-            <img src={p.image} alt={p.title} width="200" />
-            <h2>{p.title}</h2>
-            <p>{p.price.toString()} COP</p>
-            <p>{p.description.slice(0, 100)}...</p>
-            <Link href={`/catalogo/${p.slug}`}>Ver más</Link>
+          <div key={p.id} className="product-card">
+            <img src={p.mainImage} alt={p.title} className="product-image" />
+            <div className="product-info">
+              <h2>{p.title}</h2>
+              <p>{p.description.slice(0, 100)}...</p>
+              <div className="price-badge">
+                ${p.price.toLocaleString("es-CO")}
+              </div>
+              <Link href={`/catalogo/${p.slug}`} className="product-link">
+                Ver más
+              </Link>
+            </div>
           </div>
         ))}
       </div>

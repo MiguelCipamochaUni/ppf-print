@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function NuevoProducto() {
   const router = useRouter();
@@ -19,15 +20,34 @@ export default function NuevoProducto() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("title", form.title);
-    data.append("description", form.description);
-    data.append("price", form.price);
-    data.append("image", file);
+    let imageUrl = "";
+    if (file) {
+      // sube a Supabase
+      const filePath = `productos/${Date.now()}-${file.name}`;
+      const { error } = await supabase.storage
+        .from("productos")
+        .upload(filePath, file);
 
-    await fetch("/api/admin/productos", {
+      if (error) {
+        console.error("Error subiendo la imagen:", error);
+        alert("Error subiendo la imagen");
+        return;
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from("productos")
+        .getPublicUrl(filePath);
+
+      imageUrl = publicUrlData.publicUrl;
+    }
+
+    // guarda en tu backend
+    await fetch("/api/admin/productos/new", {
       method: "POST",
-      body: data,
+      body: JSON.stringify({
+        ...form,
+        mainImage: imageUrl,
+      }),
     });
 
     router.push("/admin/productos");

@@ -1,18 +1,20 @@
 import db from "@/lib/db";
 
-export async function POST(req) {
-  const { title, description, price } = await req.json();
+export async function PUT(req, { params }) {
+  const { title, description, price, mainImage } = await req.json();
 
   const slug = title.toLowerCase().replace(/\s+/g, "-");
+  const paramsId = await params.id;
 
   const producto = await db.product.update({
+    where: { id: paramsId },
     data: {
       title,
       description,
       price: parseFloat(price),
       slug,
-      mainImage: "/assets/default.png", // cambiar cuando implementes subida de imágenes
-      images: [],
+      mainImage,
+      images: [mainImage],
     },
   });
 
