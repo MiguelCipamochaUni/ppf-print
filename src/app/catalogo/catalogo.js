@@ -20,7 +20,7 @@ export default async function Catalogo() {
       {/* HEADER con imagen */}
       <header className="hero-header">
         <Image
-          src="/public/banner.png"
+          src="/ppf-print/public/banner.png"
           alt="PPF Print - Protege tu auto/moto"
           fill
           priority
