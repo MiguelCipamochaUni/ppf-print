@@ -2,6 +2,9 @@ import prisma from "../../lib/db";
 import Link from "next/link";
 import "./catalogo.css";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export default async function Catalogo() {
   const productsPrisma = await prisma.product.findMany();
   const products = productsPrisma.map((p) => ({

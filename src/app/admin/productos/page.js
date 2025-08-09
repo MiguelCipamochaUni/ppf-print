@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import db from "@/lib/db";
 import ProductoAdminItem from "./ProductoAdminItem";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 export default async function AdminProductos() {
   /*
   const session = await getServerSession(authOptions);
