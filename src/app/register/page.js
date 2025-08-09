@@ -13,7 +13,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/register", {
+    const res = await fetch("/api/users/register", {
       method: "POST",
       body: JSON.stringify(form),
     });
