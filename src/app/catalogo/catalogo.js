@@ -1,20 +1,42 @@
 import prisma from "../../lib/db";
 import Link from "next/link";
+import Image from "next/image";
 import "./catalogo.css";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export default async function Catalogo() {
-  const productsPrisma = await prisma.product.findMany();
+  const productsPrisma = await prisma.product.findMany({
+    orderBy: { createdAt: "desc" },
+  });
   const products = productsPrisma.map((p) => ({
     ...p,
-    price: p.price.toNumber(), // convierte Decimal -> number
+    price: p.price.toNumber(),
   }));
 
   return (
-    <div className="catalogo-container">
-      <h1>Catálogo</h1>
+    <div className="catalogo-page">
+      {/* HEADER con imagen */}
+      <header className="hero-header">
+        <Image
+          src="/public/banner.png"
+          alt="PPF Print - Protege tu auto/moto"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-img"
+        />
+        <div className="hero-actions">
+          <Link href="/carrito" className="hero-btn">
+            Carrito
+          </Link>
+          <Link href="/perfil" className="hero-btn outline">
+            Mi cuenta
+          </Link>
+        </div>
+      </header>
+
       <div className="catalogo-grid">
         {products.map((p) => (
           <div key={p.id} className="product-card">

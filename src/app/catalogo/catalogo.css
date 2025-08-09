@@ -1,76 +1,137 @@
-.catalogo-container {
+.catalogo-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* ===== Header con imagen (no background) ===== */
+.hero-header {
+  position: relative;
+  width: 100%;
+  height: 220px;              /* ajusta la altura del header */
+  max-height: 320px;
+  overflow: hidden;
+}
+
+.hero-img {
+  object-fit: cover;          /* recorta sutilmente para llenar el ancho */
+  object-position: center;
+}
+
+/* Botones sobre la imagen */
+.hero-actions {
+  position: absolute;
+  top: 14px;                  /* separación del borde superior */
+  right: 18px;                /* separación del borde derecho */
+  display: flex;
+  gap: 12px;
+  z-index: 2;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-decoration: none;
+  color: #111;                /* texto oscuro en botón claro */
+  background: #fff;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.hero-btn:hover { transform: translateY(-2px); }
+
+.hero-btn.outline {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.hero-btn.outline:hover { background: rgba(255,255,255,0.1); }
+
+/* ===== Título ===== */
+.catalogo-title {
+  margin: 1.25rem 0 .5rem;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111;
+}
+
+/* ===== Grid / Cards (puedes conservar lo que ya tenías) ===== */
 .catalogo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
   max-width: 1200px;
-  padding: 0 1rem;
+  padding: 0 1rem 2rem;
 }
 
 .product-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  background: #111;
+  border-radius: 10px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.25);
   overflow: hidden;
   position: relative;
   text-align: center;
-  transition: transform 0.2s ease;
+  transition: transform .2s ease, box-shadow .2s ease;
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .product-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.35);
 }
 
 .product-image {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: contain;
+  background: #000;
   padding: 1rem;
 }
 
-.product-info {
-  padding: 1rem;
-}
+.product-info { padding: 1rem 1rem 2.2rem; }
 
 .product-info h2 {
-  color: #5e2ca5;
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: .35rem;
+  font-size: 1.15rem;
 }
 
 .product-info p {
-  color: #555;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  color: #cfcfcf;
+  font-size: .92rem;
+  margin-bottom: .75rem;
 }
 
 .price-badge {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  background: #e3d5f1;
-  color: #5e2ca5;
-  font-weight: bold;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  bottom: .6rem;
+  right: .6rem;
+  background: #ff2d2d;
+  color: #fff;
+  font-weight: 800;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+  font-size: .95rem;
 }
 
 .product-link {
   display: inline-block;
-  margin-top: 0.5rem;
-  color: #5e2ca5;
-  font-weight: bold;
+  margin-top: .25rem;
+  color: #ffdede;
+  font-weight: 700;
   text-decoration: none;
 }
+.product-link:hover { text-decoration: underline; }
 
-.product-link:hover {
-  text-decoration: underline;
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-header { height: 180px; }
+  .catalogo-title { font-size: 1.6rem; }
+  .hero-actions { top: 10px; right: 12px; }
 }
