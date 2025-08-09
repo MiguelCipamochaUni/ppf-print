@@ -1,5 +1,5 @@
 import db from "@/lib/db";
-import { revalidatePath } from "next/cache";
+export const dynamic = "force-dynamic";
 
 export async function POST(req) {
   const { title, description, price, mainImage } = await req.json();
@@ -16,9 +16,6 @@ export async function POST(req) {
       images: [mainImage],
     },
   });
-
-  revalidatePath("/catalogo");
-  revalidatePath(`/catalogo/${producto.slug}`);
 
   return Response.json({ producto });
 }
