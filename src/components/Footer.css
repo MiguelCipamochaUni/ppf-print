@@ -1,0 +1,53 @@
+.ppf-footer {
+  background-color: #000;
+  color: #fff;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* Texto rojo cursivo arriba */
+.footer-desc {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #ff2c2c;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-desc span {
+  font-weight: bold;
+}
+
+/* Beneficios */
+.footer-benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.benefit-icon {
+  width: 28px;
+  height: 28px;
+}
+
+@media (min-width: 768px) {
+  .footer-benefits {
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+  }
+}

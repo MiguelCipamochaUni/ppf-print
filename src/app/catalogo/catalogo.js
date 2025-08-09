@@ -2,6 +2,7 @@ import prisma from "../../lib/db";
 import Link from "next/link";
 import Image from "next/image";
 import "./catalogo.css";
+import Footer from "@/components/Footer";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -17,12 +18,13 @@ export default async function Catalogo() {
 
   return (
     <div className="catalogo-page">
-      {/* HEADER con imagen */}
+      {/* HEADER: la imagen define la altura */}
       <header className="hero-header">
         <Image
-          src="/ppf-print/public/banner.png"
+          src="/assets/banner2.png"
           alt="PPF Print - Protege tu auto/moto"
-          fill
+          width={1589}
+          height={516}
           priority
           sizes="100vw"
           className="hero-img"
@@ -54,6 +56,7 @@ export default async function Catalogo() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
